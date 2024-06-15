@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trek Tracer</title>
+      <!-- CSS and favicon links -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/images/favicon.ico') }}"/>
+  </head>
+
+    <header>
+        <h1>Trek Tracer</h1>
+    </header>
+    <nav>
+        <!-- Page Navigation -->
+    <ul>
+        <li><a href="{{ url_for('home') }}">Hiker Registration</a></li>
+        <li><a href="{{ url_for('trails') }}">Trails</a></li>
+        <li><a href="{{ url_for('events') }}">Events</a></li>
+        <li><a href="{{ url_for('eventRegistrations') }}">Event Registrations</a></li>
+        <li><a href="{{ url_for('hikerLogs') }}">Hiker Logs</a></li>
+    </ul>
+    </nav>
+    <body>
+        <h1>Events</h1>
+        <!-- Table displaying events-->
+        <table>
+            <tr>
+                <th>Event ID</th>
+                <th>Event Name</th>
+                <th>Event Date</th>
+                <th>Weather</th>
+                <th>Event Info</th>
+                <th>Delete</th>
+            </tr>
+
+                <!-- Populate table rows from eventRegistrations data-->
+                {% for event in data %}
+            <tr>
+                <td>{{ event.eventID }}</td>
+                <td>{{ event.eventName }}</td>
+                <td>{{ event.eventDate }}</td>
+                <td>{{ event.weather }}</td>
+                <td>{{ event.eventInfo }}</td>
+                <!-- Form to delete an event in the table -->
+                <td>
+                    <form action="deleteEvent" method="post" style="border:none; padding:0px">
+                    <button type="submit" value="{{ event.eventID }}" id="deleteEventID" name="deleteEventID">Delete</button>
+                    </form>
+                </td>
+            </tr>
+                        {% endfor %}
+
+        </table>
+        <!-- Form to INSERT an event-->
+        <h1>Add an Event</h1>
+        <!-- addEvent box in the form, boxes for eventName, eventDate, weather, eventInfo -->
+        <form action="addEvent" method="post">
+
+            <label for="eventName">Event Name:</label><br>
+            <input type="text" id="eventName" name="eventName" required><br>
+    
+            <label for="eventDate">Event Date:</label><br>
+            <input type="datetime-local" id="eventDate" name="eventDate" required><br>
+    
+            <label for="weather">Weather:</label><br>
+            <input type="text" id="weather" name="weather"><br>
+    
+            <label for="eventInfo">Event Info:</label><br>
+            <textarea id="eventInfo" name="eventInfo" rows="4" cols="50"></textarea><br><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Add">
+        </form>
+
+        <h1>Edit an Event</h1>
+        <!-- Form to UPDATE an event-->
+        <form action="editEvent" method="post">
+            <!-- editEvent box in the form, boxes for eventName, eventDate, weather, eventInfo -->
+
+            <label for="editEventID">Event ID:</label><br>
+            <input type="text" id="editEventID" name="editEventID" required><br>
+
+            <label for="editEventName">Event Name:</label><br>
+            <input type="text" id="editEventName" name="editEventName" required><br>
+
+            <label for="editEventDate">Event Date:</label><br>
+            <input type="datetime-local" id="editEventDate" name="editEventDate" required><br>
+
+            <label for="editWeather">Weather:</label><br>
+            <input type="text" id="editWeather" name="editWeather"><br>
+
+            <label for="editEventInfo">Event Info:</label><br>
+            <textarea id="editEventInfo" name="editEventInfo" rows="4" cols="50"></textarea><br><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Update">
+        </form>
+
+        <h1>Delete an Event</h1>
+        <!-- Form to DELETE an event-->
+        <form action="deleteEvent" method="post">
+            <!-- deleteEvent box, takes eventID as user input-->
+            <label for="deleteEventID">Event ID:</label><br>
+            <input type="text" id="deleteEventID" name="deleteEventID"><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Delete">
+        </form>
+
+      <!-- Text area at bottom of page -->
+    <main>
+        <p>Trek Tracer &copy; by Cameron Baker and Aizen Yamashita</p>
+    </main>
+	
+  </body>
+</html>

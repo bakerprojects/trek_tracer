@@ -1,0 +1,202 @@
+/*Source for style.css: (
+Date: 6/1/24
+Based on and then adapted from a previously developed CSS file by Cameron Baker, a member of the Trek Tracer team.
+) */
+
+  @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+  @import url('https://fonts.googleapis.com/css?family=Raleway:600,700,800,900');
+
+
+  /*   ----- Variables  -----  */
+  :root {
+      --custom-color-dark: #32373A;
+      --custom-color-medium: #AC9386;
+      --custom-color-light: #F0DFCF;
+      --custom-color-contrast: #572617;
+      --custom-color-transparency: rgba(113, 96, 89, 0.5);
+      --custom-embellishment-name:;
+    }
+
+    /*  ----- Viewport -----  */
+    body {
+      background-color:transparent;
+      background-image: url('images/background.jpg');
+      background-size: cover;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: var(--custom-color-contrast);
+      font-family: 'Lato', sans-serif;
+      margin:0 auto;
+      padding:0;
+      max-width: 1200px;
+    }
+
+    /*  ----- Page layout blocks -----  */
+    header {
+      background-color: var(--custom-color-transparency);
+      color: var(--custom-color-light);
+      padding: 10px;
+      margin: 10px;
+      border-bottom: 3px solid var(--custom-color-medium);
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  header img {
+      width: 10%;
+      height: auto;
+      margin: 0 10px;
+  }
+  h1, h2 {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: #9DDE8B;
+  }
+    main {
+      background-color: var(--custom-color-light);
+      color: var(--custom-color-dark);
+      padding: 15px;
+      margin: 15px;
+      text-align: center;
+    }
+    footer {
+      background-color: var(--custom-color-medium);
+      color: var(--custom-color-light);
+      padding: 10px;
+      border-top: 1px solid var(--custom-color-dark);
+    }
+    footer p {
+      text-align: center;
+      margin: 0;
+      color: var(--custom-color-contrast);
+    }
+
+    /*  ----- Navigation ----- */
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: var(--custom-color-medium);
+      padding: 5px;
+      margin: 5px;
+      border: 3px solid var(--custom-color-dark);
+      border-radius: 5px;
+    }
+    nav a {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--custom-color-light);
+      background-color: var(--custom-color-contrast);
+      padding: 5px;
+      margin: 5px;
+      border: 3px solid var(--custom-color-dark);
+      border-radius: 10px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    nav li {
+      margin-right: 10px;
+    }
+    nav a:hover {
+      background-color: var(--custom-color-medium);
+      color: var(--custom-color-light);
+    }
+    .local a {
+      border: none;
+      display: flex;
+      border-radius: 0;
+      background-color: var(--custom-color-medium);
+    }
+
+    /*  ----- Table ----- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 15px;
+      text-align:center;
+    }
+    caption {
+      background-color: var(--custom-color-medium);
+      border: 1px solid var(--custom-color-dark);
+      color: var(--custom-color-dark);
+      font-weight: bold;
+      padding: 1% 0;
+      text-align:center;
+    }
+    thead {
+      text-align:center;
+      color: var(--custom-color-dark);
+      font-weight: bold;
+    }
+    tbody {
+      text-align:center;
+      background-color: var(--custom-color-light);
+      color: var(--custom-color-dark);
+    }
+    tr td {
+      text-align: center;
+      border: 1px solid var(--custom-color-dark);
+    }
+    tr th {
+      background-color: var(--custom-color-transparency);
+      padding: 20px;
+      text-align: center;
+      border: 1px solid var(--custom-color-dark);
+    }
+
+    /*  ----- Form ----- */
+    form {
+      background-color: var(--custom-color-light);
+      padding: 5px;
+      border: 2px solid var(--custom-color-medium);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    }
+    fieldset {
+      border: 1px solid var(--custom-color-medium);
+      margin: 15px 0;
+      padding: 15px;
+    }
+      legend {
+        font-weight: bold;
+      }
+    label {
+      display: block;
+      margin: 10px 0;
+      font-weight: bold;
+      text-align: center;
+    }
+    button {
+      background-color: #A9A9A9;
+      color: #000000;
+      border: none;
+      border-radius: 3px;
+    }
+    button:hover {
+      background-color: var(--custom-color-medium);
+      color: var(--custom-color-light);
+    }
+    input, button, textarea, select {
+      font-size: 100%;
+      padding: 2%;
+      font-family: inherit;
+      text-align: center;
+      margin: 5px 0;
+  }
+  :focus{
+    background-color: var(--custom-color-medium);
+  }
+  *:required {
+    border:2px solid red;
+  }

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trek Tracer</title>
+      <!-- CSS and favicon links -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/images/favicon.ico') }}"/>
+  </head>
+
+    <header>
+        <h1>Trek Tracer</h1>
+    </header>
+
+    <nav>
+        <!-- Page Navigation -->
+    <ul>
+        <li><a href="{{ url_for('home') }}">Hiker Registration</a></li>
+        <li><a href="{{ url_for('trails') }}">Trails</a></li>
+        <li><a href="{{ url_for('events') }}">Events</a></li>
+        <li><a href="{{ url_for('eventRegistrations') }}">Event Registrations</a></li>
+        <li><a href="{{ url_for('hikerLogs') }}">Hiker Logs</a></li>
+    </ul>
+    </nav>
+
+    <body>
+        <h1>Registered Hikers</h1>
+        <!-- Table displaying hikers-->
+        <table>
+            <tr>
+
+                <th>Hiker ID</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Biography</th>
+                <th>Delete</th>
+            </tr>
+            <!-- Populate table rows from hikers data-->
+                {% for hiker in data %}
+            <tr>
+                <td>{{ hiker.hikerID }}</td>
+                <td>{{ hiker.email }}</td>
+                <td>{{ hiker.userName }}</td>
+                <td>{{ hiker.biography }}</td>
+                <!-- Form to delete a hiker in the table -->
+                <td>
+                    <form action="deleteHiker" method="post" style="border:none; padding:0px">
+                    <button type="submit" value="{{ hiker.hikerID }}" id="deleteHikerID" name="deleteHikerID">Delete</button>
+                    </form>
+                </td>
+            </tr>
+                        {% endfor %}
+        </table>
+
+        <!-- Form to INSERT a hiker-->
+        <h1>Hiker Registration</h1>
+        <!-- addHiker boxes in the form -->
+        <form action="addHiker" method="post">
+        <!-- addHiker box in the form, boxes for email, userName, biography -->
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+    
+            <label for="userName">Username:</label><br>
+            <input type="text" id="userName" name="userName" required><br>
+    
+            <label for="biography">Biography:</label><br>
+            <textarea id="biography" name="biography" rows="4" cols="50"></textarea><br><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Add">
+        </form>
+
+        <h1>Edit Hiker</h1>
+        <!-- Form to UPDATE a hiker-->
+        <form action="editHiker" method="post">
+            <!-- editHiker box in the form, boxes for hikerID, email, userName, biography -->
+            <label for="editHikerID">Hiker ID:</label><br>
+            <input type="text" id="editHikerID" name="editHikerID" required><br>
+
+            <label for="editEmail">Email:</label><br>
+            <input type="email" id="editEmail" name="editEmail" required><br>
+    
+            <label for="editUsername">Username:</label><br>
+            <input type="text" id="editUsername" name="editUsername" required><br>
+    
+            <label for="editBiography">Biography:</label><br>
+            <textarea id="editBiography" name="editBiography" rows="4" cols="50"></textarea><br><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Update">
+        </form>
+
+        <!-- Form to DELETE a hiker-->
+        <h1>Delete Hiker</h1>
+        <!-- deleteHiker box, takes hikerID as user input-->
+        <form action="deleteHiker" method="post">
+            <label for="deleteHikerID">Hiker ID:</label><br>
+            <input type="text" id="deleteHikerID" name="deleteHikerID"><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Delete">
+        </form>
+
+        <!-- Text area at bottom of page -->
+    <main>
+        <p>Trek Tracer &copy; by Cameron Baker and Aizen Yamashita</p>
+    </main>
+	
+  </body>
+</html>

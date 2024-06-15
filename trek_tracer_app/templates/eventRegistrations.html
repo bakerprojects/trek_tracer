@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trek Tracer</title>
+      <!-- CSS and favicon links -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/images/favicon.ico') }}"/>
+  </head>
+
+    <header>
+        <h1>Trek Tracer</h1>
+    </header>
+    <nav>
+         <!-- Page Navigation -->
+    <ul>
+        <li><a href="{{ url_for('home') }}">Hiker Registration</a></li>
+        <li><a href="{{ url_for('trails') }}">Trails</a></li>
+        <li><a href="{{ url_for('events') }}">Events</a></li>
+        <li><a href="{{ url_for('eventRegistrations') }}">Event Registrations</a></li>
+        <li><a href="{{ url_for('hikerLogs') }}">Hiker Logs</a></li>
+    </ul>
+    </nav>
+    <body>
+        <h1>Event Registrations</h1>
+         <!-- Table displaying eventRegistrations-->
+        <table>
+            <tr>
+                <th>Registration ID</th>
+                <th>Event ID</th>
+                <th>Hiker ID</th>
+                <th>Registration Time</th>
+                <th>Delete</th>
+            </tr>
+
+            <!-- Populate table rows from eventRegistrations data-->
+            {% for registration in data %}
+
+            <tr>
+                <td>{{ registration.registrationID }}</td>
+                <td>{{ registration.eventID }}</td>
+                <td>{{ registration.hikerID }}</td>
+                <td>{{ registration.registrationTime }}</td>
+                          <!-- Form to delete a registration in the table -->
+                <td>
+                    <form action="deleteEventRegistration" method="post" style="border:none; padding:0px">
+                    <button type="submit" value="{{ registration.registrationID }}" id="deleteEventRegistrationID" name="deleteRegistrationID">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+                        {% endfor %}
+        </table>
+
+        <!-- Form to INSERT an eventRegistration -->
+
+        <h1>Add an Event Registration</h1>
+
+        <!-- addEventID box in the form -->
+        <form action="addEventRegistration" method="post">
+              <label for="addEventID">Event ID:</label><br>
+                <select id="addEventID" name="addEventID">
+                    <option disabled value="">-- Select an option --</option>
+                    <!-- Populate drop down with eventID and eventName -->
+                {% for event in event_data %}
+                <option value="{{ event.eventID }}">{{ event.eventID }}: {{ event.eventName }}</option>
+                {% endfor %}
+            </select><br>
+
+            <!-- addHikerID box in the form -->
+             <label for="addHikerID">Hiker ID:</label><br>
+                <select id="addHikerID" name="addHikerID">
+                    <option disabled value="">-- Select an option --</option>
+                <!-- Populate drop down with hikerID and userName -->
+                {% for hiker in hiker_data %}
+                <option value="{{ hiker.hikerID }}">{{ hiker.hikerID }}: {{ hiker.userName }}</option>
+                {% endfor %}
+            </select><br>
+
+            <!-- addRegistrationTime box in the form for user input -->
+            <label for="addRegistrationTime">Registration Time:</label><br>
+            <input type="datetime-local" id="addRegistrationTime" name="addRegistrationTime"><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Add">
+        </form>
+
+        <!-- Form to UPDATE an eventRegistration -->
+
+        <h1>Edit an Event Registration</h1>
+
+        <!-- editRegistrationID box in the form -->
+        <form action="editEventRegistration" method="post">
+            <label for="editRegistrationID">Registration ID:</label><br>
+            <input type="text" id="editRegistrationID" name="editRegistrationID"><br>
+            <!-- editEventID box in the form -->
+             <label for="editEventID">Event ID:</label><br>
+                <select id="editEventID" name="editEventID">
+                    <option disabled value="">-- Select an option --</option>
+                <!-- Populate drop down with eventID and eventName -->
+                {% for event in event_data %}
+                <option value="{{ event.eventID }}">{{ event.eventID }}: {{ event.eventName }}</option>
+                {% endfor %}
+            </select><br>
+            <!-- editHikerID box in the form -->
+             <label for="editHikerID">Hiker ID:</label><br>
+                <select id="editHikerID" name="editHikerID">
+                    <option disabled value="">-- Select an option --</option>
+                <!-- Populate drop down with hikerID and userName -->
+                {% for hiker in hiker_data %}
+                <option value="{{ hiker.hikerID }}">{{ hiker.hikerID }}: {{ hiker.userName }}</option>
+                {% endfor %}
+            </select><br>
+
+            <!-- editRegistrationTime box in the form for user input -->
+            <label for="editRegistrationTime">Registration Time:</label><br>
+            <input type="datetime-local" id="editRegistrationTime" name="editRegistrationTime"><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Update">
+        </form>
+
+        <!-- Form to DELETE an eventRegistration -->
+        <h1>Delete an Event Registration</h1>
+        <!-- deleteEventRegistration box in the form for user input -->
+        <form action="deleteEventRegistration" method="post">
+            <label for="deleteRegistrationID">Registration ID:</label><br>
+            <input type="text" id="deleteRegistrationID" name="deleteRegistrationID"><br>
+
+            <input type="submit" value="Delete">
+        </form>
+
+      <!-- Text area at bottom of page -->
+    <main>
+        <p>Trek Tracer &copy; by Cameron Baker and Aizen Yamashita</p>
+    </main>
+	
+  </body>
+</html>

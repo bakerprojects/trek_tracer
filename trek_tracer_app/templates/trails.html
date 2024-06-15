@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trek Tracer</title>
+      <!-- CSS and favicon links -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/images/favicon.ico') }}"/>
+  </head>
+
+    <header>
+        <h1>Trek Tracer</h1>
+    </header>
+    <nav>
+        <!-- Page Navigation -->
+    <ul>
+        <li><a href="{{ url_for('home') }}">Hiker Registration</a></li>
+        <li><a href="{{ url_for('trails') }}">Trails</a></li>
+        <li><a href="{{ url_for('events') }}">Events</a></li>
+        <li><a href="{{ url_for('eventRegistrations') }}">Event Registrations</a></li>
+        <li><a href="{{ url_for('hikerLogs') }}">Hiker Logs</a></li>
+    </ul>
+    </nav>
+    <body>
+        <h1>Trails</h1>
+        <!-- Table displaying trails-->
+        <table>
+            <tr>
+
+                <th>Trail ID</th>
+                <th>Trail Name</th>
+                <th>Length</th>
+                <th>Difficulty</th>
+                <th>Trail Info</th>
+                <th>Delete</th>
+            </tr>
+            <!-- Populate table rows from trails data-->
+                {% for trail in data %}
+            <tr>
+                <td>{{ trail.trailID }}</td>
+                <td>{{ trail.trailName }}</td>
+                <td>{{ trail.length }}</td>
+                <td>{{ trail.difficulty }}</td>
+                <td>{{ trail.trailInfo }}</td>
+                <!-- Form to delete a trail in the table -->
+                <td>
+                    <form action="deleteTrail" method="post" style="border:none; padding:0px">
+                    <button type="submit" value="{{ trail.trailID }}" id="deleteTrailID" name="deleteTrailID">Delete</button>
+                    </form>
+                </td>
+            </tr>
+                {% endfor %}
+        </table>
+
+        <!-- Form to INSERT a trail-->
+        <h1>Add a Trail</h1>
+        <!-- addTrail boxes in the form -->
+        <form action="addTrail" method="post">
+           <!-- addTrail box in the form, boxes for trailName, length, difficulty, trailInfo -->
+            <label for="trailName">Trail Name:</label><br>
+            <input type="text" id="trailName" name="trailName" required><br>
+    
+            <label for="length">Length:</label><br>
+            <input type="text" id="length" name="length"><br>
+    
+            <label for="difficulty">Difficulty:</label><br>
+            <!-- drop down difficulty selection -->
+            <select id="difficulty" name="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                <option value="expert">Expert</option>
+            </select><br>
+    
+            <label for="trailInfo">Trail Info:</label><br>
+            <textarea id="trailInfo" name="trailInfo" rows="4" cols="50"></textarea><br><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Add">
+        </form>
+
+        <h1>Edit a Trail</h1>
+        <!-- Form to UPDATE a trail-->
+        <form action="editTrail" method="post">
+            <!-- editTrail box in the form, boxes for trailID, trailName, length, difficulty, trailInfo -->
+            <label for="editTrailID">Trail ID:</label><br>
+            <input type="text" id="editTrailID" name="editTrailID" required><br>
+
+            <label for="editTrailName">Trail Name:</label><br>
+            <input type="text" id="editTrailName" name="editTrailName" required><br>
+
+            <label for="editLength">Length:</label><br>
+            <input type="text" id="editLength" name="editLength"><br>
+
+            <label for="editDifficulty">Difficulty:</label><br>
+            <!-- drop down difficulty selection -->
+            <select id="editDifficulty" name="editDifficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                <option value="expert">Expert</option>
+            </select><br>
+
+            <label for="editTrailInfo">Trail Info:</label><br>
+            <textarea id="editTrailInfo" name="editTrailInfo" rows="4" cols="50"></textarea><br><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Update">
+        </form>
+
+        <!-- Form to DELETE a trail-->
+        <h1>Delete a Trail</h1>
+        <!-- deleteTrail box, takes trailID as user input-->
+        <form action="deleteTrail" method="post">
+            <label for="deleteTrailID">Trail ID:</label><br>
+            <input type="text" id="deleteTrailID" name="deleteTrailID"><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Delete">
+        </form>
+
+        <!-- Text area at bottom of page -->
+    <main>
+        <p>Trek Tracer &copy; by Cameron Baker and Aizen Yamashita</p>
+    </main>
+	
+  </body>
+</html>

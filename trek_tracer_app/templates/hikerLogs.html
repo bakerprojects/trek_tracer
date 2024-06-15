@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trek Tracer</title>
+      <!-- CSS and favicon links -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/images/favicon.ico') }}"/>
+  </head>
+
+    <header>
+        <h1>Trek Tracer</h1>
+    </header>
+    <nav>
+                <!-- Page Navigation -->
+        <ul>
+        <li><a href="{{ url_for('home') }}">Hiker Registration</a></li>
+        <li><a href="{{ url_for('trails') }}">Trails</a></li>
+        <li><a href="{{ url_for('events') }}">Events</a></li>
+        <li><a href="{{ url_for('eventRegistrations') }}">Event Registrations</a></li>
+        <li><a href="{{ url_for('hikerLogs') }}">Hiker Logs</a></li>
+        </ul>
+    </nav>
+    <body>
+        <h1>Hiker Logs</h1>
+        <!-- Table displaying hikerLogs-->
+        <table>
+            <tr>
+
+                <th>Log ID</th>
+                <th>Hiker ID</th>
+                <th>Trail ID</th>
+                <th>Event ID</th>
+                <th>Log Time</th>
+                <th>Difficulty</th>
+                <th>Delete</th>
+            </tr>
+            <!-- Populate table rows from hikerLogs data-->
+                {% for log in data %}
+            <tr>
+                <td>{{ log.logID }}</td>
+                <td>{{ log.hikerID }}</td>
+                <td>{{ log.trailID }}</td>
+                <td>{{ log.eventID }}</td>
+                <td>{{ log.logTime }}</td>
+                <td>{{ log.difficulty }}</td>
+                <!-- Form to delete a hikerLog in the table -->
+                <td>
+                    <form action="deleteHikerLog" method="post" style="border:none; padding:0px;">
+                    <button type="submit" value="{{ log.logID }}" id="deleteLogID" name="deleteLogID">Delete</button>
+                    </form>
+                </td>
+            </tr>
+                {% endfor %}
+
+        </table>
+
+        <!-- Form to INSERT a hikerLog-->
+        <h1>Add a Hiker Log</h1>
+        <!-- addHikerLog boxes in the form -->
+        <form action="addHikerLog" method="post">
+            <label for="hikerID">Hiker ID:</label><br>
+            <select id="hikerID" name="hikerID">
+                <option disabled value="">-- Select an option --</option>
+                <!-- Null/none value option -->
+                <option value="">None</option>
+                <!-- Populate drop down with hikerID and userName -->
+               {% for hiker in hiker_data %}
+                <option value="{{ hiker.hikerID }}">{{ hiker.hikerID }}: {{ hiker.userName }}</option>
+                {% endfor %}
+            </select><br>
+        
+            <label for="trailID">Trail ID:</label><br>
+            <select id="trailID" name="trailID">
+                <option disabled value="">-- Select an option --</option>
+                <!-- Null/none value option -->
+                <option value="">None</option>
+                <!-- Populate drop down with trailID and trailName -->
+                {% for trail in trail_data %}
+                <option value="{{ trail.trailID }}">{{ trail.trailID }}: {{ trail.trailName }}</option>
+                {% endfor %}
+            </select><br>
+        
+            <label for="eventID">Event ID:</label><br>
+            <select id="eventID" name="eventID">
+                <option disabled value="">-- Select an option --</option>
+                <!-- Null/none value option -->
+                <option value="">None</option>
+                <!-- Populate drop down with eventID and eventName -->
+               {% for event in event_data %}
+                <option value="{{ event.eventID }}">{{ event.eventID }}: {{ event.eventName }}</option>
+                {% endfor %}
+            </select><br>
+        
+            <label for="logTime">Log Time:</label><br>
+            <input type="datetime-local" id="logTime" name="logTime"><br>
+
+            <!-- drop down difficulty selection -->
+            <label for="difficulty">Difficulty:</label><br>
+            <select id="difficulty" name="difficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                <option value="expert">Expert</option>
+            </select><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Add">
+        </form>
+
+        <!-- Form to UPDATE a hikerLog-->
+        <h1>Edit a Hiker Log</h1>
+        <!-- editHikerLog boxes in the form -->
+        <form action="editHikerLog" method="post">
+            <label for="editLogID">Log ID:</label><br>
+            <input type="text" id="editLogID" name="editLogID"><br>
+
+            <label for="editHikerID">Hiker ID:</label><br>
+            <select id="editHikerID" name="editHikerID">
+                <option disabled value="">-- Select an option --</option>
+                <!-- Null/none value option -->
+                <option value="">None</option>
+                <!-- Populate drop down with hikerID and userName -->
+               {% for hiker in hiker_data %}
+                <option value="{{ hiker.hikerID }}">{{ hiker.hikerID }}: {{ hiker.userName }}</option>
+                {% endfor %}
+            </select><br>
+
+            <label for="editTrailID">Trail ID:</label><br>
+            <select id="editTrailID" name="editTrailID">
+                <option disabled value="">-- Select an option --</option>
+                <!-- Null/none value option -->
+                <option value="">None</option>
+                <!-- Populate drop down with trailID and trailName -->
+                {% for trail in trail_data %}
+                <option value="{{ trail.trailID }}">{{ trail.trailID }}: {{ trail.trailName }}</option>
+                {% endfor %}
+            </select><br>
+
+            <label for="editEventID">Event ID:</label><br>
+            <select id="editEventID" name="editEventID">
+                <option disabled value="">-- Select an option --</option>
+                <!-- Null/none value option -->
+                <option value="">None</option>
+                <!-- Populate drop down with eventID and eventName -->
+               {% for event in event_data %}
+                <option value="{{ event.eventID }}">{{ event.eventID }}: {{ event.eventName }}</option>
+                {% endfor %}
+            </select><br>
+        
+            <label for="editLogTime">Log Time:</label><br>
+            <input type="datetime-local" id="editLogTime" name="editLogTime"><br>
+
+            <!-- drop down difficulty selection -->
+            <label for="editDifficulty">Difficulty:</label><br>
+            <select id="editDifficulty" name="editDifficulty">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                <option value="expert">Expert</option>
+            </select><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Update">
+        </form>
+
+        <!-- Form to DELETE a hikerLog-->
+        <h1>Delete a Hiker Log</h1>
+        <!-- deleteHikerLog box, takes logID as user input-->
+        <form action="deleteHikerLog" method="post">
+            <label for="deleteLogID">Log ID:</label><br>
+            <input type="text" id="deleteLogID" name="deleteLogID"><br>
+            <!-- button to submit the form -->
+            <input type="submit" value="Delete">
+        </form>
+        
+        
+    <main>
+        <p>Trek Tracer &copy; by Cameron Baker and Aizen Yamashita</p>
+    </main>
+	
+  </body>
+</html>
